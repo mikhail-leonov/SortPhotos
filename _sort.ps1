@@ -80,12 +80,32 @@ $ext = "*.jpeg"
 $files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
 Write-Host "Found ", @($files).count, " ", $ext, " files..." 
 Process-Photo-Files -files $files
+Write-Host "Searching photos..." 
+$ext = "*.png"
+$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
+Write-Host "Found ", @($files).count, " ", $ext, " files..." 
+Process-Photo-Files -files $files
+Write-Host "Searching photos..." 
+$ext = "*.bmp"
+$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
+Write-Host "Found ", @($files).count, " ", $ext, " files..." 
+Process-Photo-Files -files $files
 
 
 $DstPath = $BasePath + "_test\Videos\"
 #
 # Collecting and processing the videos
 #
+Write-Host "Searching videos..." 
+$ext = "*.flv"
+$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
+Write-Host "Found ", @($files).count, " ", $ext, " files..." 
+Process-Photo-Files -files $files
+Write-Host "Searching videos..." 
+$ext = "*.wmv"
+$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
+Write-Host "Found ", @($files).count, " ", $ext, " files..." 
+Process-Photo-Files -files $files
 Write-Host "Searching videos..." 
 $ext = "*.mp4"
 $files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
