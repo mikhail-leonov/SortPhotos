@@ -65,74 +65,37 @@ function Process-Photo-Files {
 # Initialization
 #
 $SrcPath = $BasePath + "_sort\"
-$DstPath = $BasePath + "_test\Photos\"
+$DstPath = $BasePath + "_done\Photos\"
 
 #
 # Collecting and processing the photos
 #
-Write-Host "Searching photos..." 
-$ext = "*.jpg"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching photos..." 
-$ext = "*.jpeg"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching photos..." 
-$ext = "*.png"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching photos..." 
-$ext = "*.bmp"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
+$imageExtensions = @(
+    "*.jpg","*.jpeg","*.png","*.bmp","*.gif","*.webp",
+    "*.tif","*.tiff","*.heic","*.heif","*.avif","*.jfif",
+    "*.cr2","*.cr3","*.nef","*.arw","*.orf","*.rw2",
+    "*.dng","*.raf","*.pef","*.raw"
+)
+foreach ($ext in $imageExtensions) {
+    Write-Host "Searching photos ( $ext )..."
+    $files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -Filter $ext
+    Process-Photo-Files $files
+}
 
+$DstPath = $BasePath + "_done\Videos\"
 
-$DstPath = $BasePath + "_test\Videos\"
 #
 # Collecting and processing the videos
 #
-Write-Host "Searching videos..." 
-$ext = "*.flv"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.wmv"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.mp4"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.3gp"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.avi"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.mov"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.mpg"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
-Write-Host "Searching videos..." 
-$ext = "*.mkv"
-$files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -filter $ext
-Write-Host "Found ", @($files).count, " ", $ext, " files..." 
-Process-Photo-Files -files $files
+$videoExtensions = @(
+    "*.mp4","*.m4v","*.mov","*.avi","*.mkv","*.wmv",
+    "*.flv","*.webm","*.mpeg","*.mpg","*.mpe",
+    "*.ts","*.m2ts","*.mts","*.vob","*.3gp","*.3g2",
+    "*.asf","*.ogv","*.rm","*.rmvb","*.f4v","*.dv",
+    "*.mod","*.tod","*.mxf"
+)
+foreach ($ext in $videoExtensions) {
+    Write-Host "Searching $ext..."
+    $files = Get-ChildItem -Recurse -Force -LiteralPath $SrcPath -Filter $ext
+    Process-Photo-Files $files
+}
